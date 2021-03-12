@@ -9,11 +9,11 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DuplicatesCheckerTest {
-    private DuplicatesChecker duplicatesChecker;
+    private DuplicatesManager duplicatesChecker;
 
     @BeforeEach
     public void setUp() throws Exception {
-        duplicatesChecker = new DuplicatesChecker();
+        duplicatesChecker = new DuplicatesManager();
     }
 
     @Test

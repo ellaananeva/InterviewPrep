@@ -32,9 +32,9 @@ public class ArrayRotator {
         return output;
     }
 
-        public int[] rotateAsString(int [] input, int k) {
+    public int[] rotateAsString(int[] input, int k) {
         if (k == 0) return input;
-        k = k%input.length;
+        k = k % input.length;
         String arrayString;
         StringBuilder sb = new StringBuilder();
         for (int j : input) {
@@ -42,8 +42,8 @@ public class ArrayRotator {
         }
         arrayString = sb.toString();
         sb.setLength(0);
-        String result= sb.append(arrayString.substring(input.length-k)).append((arrayString), 0, input.length-k).toString();
-    System.out.println(result);
-    return result.chars().toArray();
+        String result = sb.append(arrayString.substring(input.length - k)).append((arrayString), 0, input.length - k).toString();
+        System.out.println(result);
+        return result.chars().toArray();
     }
 }

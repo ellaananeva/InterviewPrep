@@ -1,6 +1,7 @@
 package strings;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class StringAnalyzer {
@@ -33,6 +34,17 @@ public class StringAnalyzer {
 
     }
 
+    public boolean isPalindrome(String s) {
+        s = s.toLowerCase().trim().replaceAll("[^A-Za-z0-9]+", "");
+        final int length = s.length();
+        for (int i = 0, j = length-1; i < length && j >= 0; i++, j--) {
+            if (s.charAt(i)!= s.charAt(j)) {
+                return false;   
+            }
+        }
+        return true;
+    }
+
     private Map<Character, Integer> getCharacterFrequencyMap(String s) {
         HashMap<Character, Integer> map = new HashMap<>();
         for (int i = 0; i < s.length(); i++) {
@@ -42,4 +54,5 @@ public class StringAnalyzer {
         }
         return map;
     }
+
 }

@@ -82,4 +82,28 @@ public class StringAnalyzerTest {
         assertTrue(stringAnalyzer.isAnagram(s, t),
                 "Unicode anagram works");
     }
+
+    @Test
+    @DisplayName("Palindrome default")
+    public void testIsPalindromDefault() {
+        String s = "A man, a plan, a canal: Panama";
+        assertTrue(stringAnalyzer.isPalindrome(s),
+                "Default palindrome works");
+    }
+
+    @Test
+    @DisplayName("Palindrome short")
+    public void testShortNotPalindrome() {
+        String s = "0P";
+        assertFalse(stringAnalyzer.isPalindrome(s),
+                "Short palindrome works");
+    }
+
+    @Test
+    @DisplayName("Not palindrome")
+    public void testNotPalindromeDefault() {
+        String s = "A man, a plan, a canal:";
+        assertFalse(stringAnalyzer.isPalindrome(s),
+                "Not palindrome works");
+    }
 }

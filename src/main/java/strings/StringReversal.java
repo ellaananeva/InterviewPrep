@@ -13,4 +13,21 @@ public class StringReversal {
         }
         return str;
     }
+
+    public int reverseInt(int x) {
+        char[] chars = String.valueOf(x).toCharArray();
+        StringBuilder sb = new StringBuilder();
+        if (x<0) sb.append("-");
+        for (int i = chars.length-1; i>=(x<0?1:0); i--)
+        {
+            sb.append(chars[i]);
+        }
+        try {
+            return Integer.parseInt(sb.toString());
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+
 }

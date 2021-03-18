@@ -1,11 +1,11 @@
-package arrays;
+package strings;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import strings.StringAnalyzer;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StringAnalyzerTest {
     private StringAnalyzer stringAnalyzer;
@@ -40,10 +40,46 @@ public class StringAnalyzerTest {
     }
 
     @Test
-    @DisplayName("Empty string")
-    public void testEmptyString() {
+    @DisplayName("Empty string unique character")
+    public void testEmptyStringUniqueCharacter() {
         String str = "";
         assertEquals(-1, stringAnalyzer.getFirstUniqueChar(str),
                 "No unique char works");
+    }
+
+    @Test
+    @DisplayName("Anagram default")
+    public void testIsAnagramDefault() {
+        String s = "nagaram";
+        String t = "anagram";
+        assertTrue(stringAnalyzer.isAnagram(s, t),
+                "Default anagram works");
+    }
+
+    @Test
+    @DisplayName("Not anagram")
+    public void testIsNotAnagramDefault() {
+        String s = "dfghj";
+        String t = "fdjgah";
+        assertFalse(stringAnalyzer.isAnagram(s, t),
+                "Not anagram works");
+    }
+
+    @Test
+    @DisplayName("Empty anagram")
+    public void testIsEmptyAnagramDefault() {
+        String s = "";
+        String t = "";
+        assertTrue(stringAnalyzer.isAnagram(s, t),
+                "Not anagram works");
+    }
+
+    @Test
+    @DisplayName("Unicode anagram")
+    public void testIsUnicodeAnagramDefault() {
+        String s = "\u2202b";
+        String t = "b\u2202";
+        assertTrue(stringAnalyzer.isAnagram(s, t),
+                "Unicode anagram works");
     }
 }

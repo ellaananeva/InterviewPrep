@@ -45,6 +45,34 @@ public class StringAnalyzer {
         return true;
     }
 
+    public int strStr(String haystack, String needle) {
+        if (needle.isEmpty()) return 0;
+        final int hLentgh = haystack.length();
+        final int nLength = needle.length();
+        if (hLentgh < nLength) return -1;
+        int iH = 0, iN = 0;
+        int result = -1;
+        while (iH < hLentgh && iN < nLength)
+        {
+            char hCh = haystack.charAt(iH), nCh = needle.charAt(iN);
+            if (hCh == needle.charAt(0) && result == -1) {
+                result = iH;
+            }
+            if (hCh!= nCh) {
+                iH++;
+                if (result != -1) {
+                    iN = 0;
+                    iH = result+1;
+                    result = -1;
+                }
+            } else {
+                iH++;
+                iN++;
+            }
+        }
+        return iN == nLength ? result : -1;
+
+    }
     private Map<Character, Integer> getCharacterFrequencyMap(String s) {
         HashMap<Character, Integer> map = new HashMap<>();
         for (int i = 0; i < s.length(); i++) {

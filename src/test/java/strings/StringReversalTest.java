@@ -1,17 +1,16 @@
 package strings;
 
-import arrays.IntersectionFinder;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class StringReversalTest {
-    private StringReversal stringReversal;
+    private StringConverter stringConverter;
 
     @BeforeEach
     public void setUp() throws Exception {
-        stringReversal = new StringReversal();
+        stringConverter = new StringConverter();
     }
 
     @Test
@@ -19,7 +18,7 @@ public class StringReversalTest {
     public void testDefaultString() {
         char[] str = {'h', 'e', 'l', 'l', 'o'};
         char[] result = {'o', 'l', 'l', 'e', 'h'};
-        Assertions.assertArrayEquals(result, stringReversal.reverseString(str),
+        Assertions.assertArrayEquals(result, stringConverter.reverseString(str),
                 "Default reversal works");
 
     }
@@ -29,7 +28,7 @@ public class StringReversalTest {
     public void testSingleChar() {
         char[] str = {'h'};
         char[] result = {'h'};
-        Assertions.assertArrayEquals(result, stringReversal.reverseString(str),
+        Assertions.assertArrayEquals(result, stringConverter.reverseString(str),
                 "Single char reversal works");
 
     }
@@ -39,7 +38,7 @@ public class StringReversalTest {
     public void testTwoChar() {
         char[] str = {'h', 'e'};
         char[] result = {'e', 'h'};
-        Assertions.assertArrayEquals(result, stringReversal.reverseString(str),
+        Assertions.assertArrayEquals(result, stringConverter.reverseString(str),
                 "Two chars reversal works");
 
     }

@@ -7,15 +7,21 @@ public class LinkedList {
         this.head = buildList(array);
     }
 
+    public LinkedList() {
+        this.head = new ListNode();
+    }
+
     public void reverse() {
         ListNode current = head;
         ListNode prev = null;
-        ListNode temp = null;
-        while (current !=null) {
-            temp = current.next;
-            current.next = prev;
-            prev = current;
-            current = temp;
+        ListNode next = null;
+        while (current != null)
+        {
+           next = current.next;
+           current.next = prev;
+           prev = current;
+           current = next;
+
         }
         head = prev;
     }
@@ -45,6 +51,32 @@ public class LinkedList {
         }
         return length;
     }
+
+    public LinkedList mergeSorted(LinkedList list) {
+        LinkedList result = new LinkedList();
+        result.head = append(this.head, list.head);
+        return result;
+    }
+
+    private ListNode append(ListNode a, ListNode b) {
+        if (a == null && b == null) {
+            return null;
+        } else if (a == null) return b;
+        else if (b == null) return a;
+        else {
+            ListNode result;
+            if (a.compareTo(b) <= 0) {
+                result = a;
+                result.next = append(a.next, b);
+            } else {
+                result = b;
+                result.next = append(b.next, a);
+            }
+            return result;
+        }
+    }
+
+
     private ListNode buildList(int[] array) {
         return build(array, 0);
     }
@@ -57,7 +89,7 @@ public class LinkedList {
         return null;
     }
 
-    class ListNode {
+    class ListNode implements Comparable<ListNode>{
         private int val;
         private ListNode next;
 
@@ -87,6 +119,14 @@ public class LinkedList {
 
         public void setNext(ListNode next) {
             this.next = next;
+        }
+
+        @Override
+        public int compareTo(ListNode o) {
+            if (o == null) return 0;
+            if (this.val > o.val) return 1;
+            else if (this.val < o.val) return -1;
+            return 0;
         }
     }
 

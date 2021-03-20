@@ -1,10 +1,16 @@
 package lists;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+
 public class LinkedList {
     private ListNode head;
+    private ListNode next;
 
     public LinkedList(int[] array){
         this.head = buildList(array);
+        this.next = head.next;
     }
 
     public LinkedList() {
@@ -58,6 +64,29 @@ public class LinkedList {
         return result;
     }
 
+    public LinkedList setNext(ListNode node) {
+        if (head == null) {
+            head = node;
+            next = head;
+        }
+        else next = node;
+        return this;
+    }
+
+
+    public boolean hasCycle() {
+        HashSet<ListNode> set = new HashSet<>();
+        ListNode current = head;
+        while (current != null) {
+            if (set.contains(current)) {
+                return true;
+            }
+            set.add(current);
+            current = current.next;
+        }
+        return false;
+    }
+
     private ListNode append(ListNode a, ListNode b) {
         if (a == null && b == null) {
             return null;
@@ -89,7 +118,7 @@ public class LinkedList {
         return null;
     }
 
-    class ListNode implements Comparable<ListNode>{
+   public class ListNode implements Comparable<ListNode>{
         private int val;
         private ListNode next;
 

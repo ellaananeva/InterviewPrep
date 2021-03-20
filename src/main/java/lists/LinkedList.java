@@ -113,12 +113,12 @@ public class LinkedList {
     private ListNode build(int[] array, int i){
         if (i<array.length)
         {
-            return new ListNode(array[i], build(array, i+1));
+            return new ListNode(array[i], build(array, i + 1));
         }
         return null;
     }
 
-   public class ListNode implements Comparable<ListNode>{
+   private static class ListNode implements Comparable<ListNode>{
         private int val;
         private ListNode next;
 

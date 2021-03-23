@@ -1,15 +1,35 @@
 package trees;
 
+import com.sun.source.tree.Tree;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 public class BinaryTree {
 
-    private TreeNode root;
+    protected TreeNode root;
     public BinaryTree() {}
 
     public BinaryTree(Integer[] array) {
         root = insertNode(array, root, 0);
+    }
+
+    public Integer[] toArray() {
+        ArrayList<Integer> res = new ArrayList<>();
+        List<TreeNode> queue = new ArrayList<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            TreeNode entry = queue.remove(0);
+            res.add(entry.val);
+            if (entry.left != null) queue.add(entry.left);
+            if (entry.right != null) queue.add(entry.right);
+        }
+        return res.toArray(Integer[]::new);
     }
 
     public int getMaxDepth() {
@@ -17,18 +37,60 @@ public class BinaryTree {
         return getDepth(root, 0);
     }
 
-    public boolean isBinarySearchTree() {
-        return isBinarySearchTree(root, null, null);
+
+
+
+    public List<List<Integer>> levelOrder() {
+        if (root == null) return new ArrayList<>();
+        List<TreeNodeEntry> queue = new ArrayList<>();
+        queue.add(new TreeNodeEntry(1, root));
+        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> currentLevel = new ArrayList<>();
+        int levelN = 1;
+        while (!queue.isEmpty()) {
+            TreeNodeEntry entry = queue.remove(0);
+            if (entry.index >= Math.pow(2, levelN)) {
+                result.add(currentLevel);
+                levelN++;
+                currentLevel = new ArrayList<>();
+            }
+            if (entry.node != null) {
+                currentLevel.add(entry.node.val);
+                queue.add(new TreeNodeEntry(2 * entry.index, entry.node.left));
+                queue.add(new TreeNodeEntry(2 * entry.index + 1, entry.node.right));
+            }
+        }
+        if (!currentLevel.isEmpty()) result.add(currentLevel);
+        return result;
     }
 
-    private boolean isBinarySearchTree(TreeNode node, Integer low, Integer high) {
-      if (node == null) return true;
-      boolean isValid = true;
-      if (low != null) isValid = node.val < low;
-      if (high != null) isValid &= node.val > high;
-      isValid &= isBinarySearchTree(node.left, node.val, high) && isBinarySearchTree(node.right, low, node.val);
-      return isValid;
+    public List<List<Integer>> levelOrderV2() {
+        if (root == null) return new ArrayList<>();
+        List<TreeNodeEntry> queue = new ArrayList<>();
+        queue.add(new TreeNodeEntry(1, root));
+        Map<Integer, List<Integer>> map = new TreeMap<>();
+        map.put(1, List.of(root.val));
+        while (!queue.isEmpty()) {
+            TreeNodeEntry entry = queue.remove(0);
+            TreeNode left = entry.node.left;
+            if (left != null) {
+                List<Integer> nextLevel = map.computeIfAbsent(entry.index+1, i -> new ArrayList<>());
+                nextLevel.add(left.val);
+                queue.add(new TreeNodeEntry(entry.index + 1, left));
+            }
+            TreeNode right = entry.node.right;
+            if (right != null) {
+                List<Integer> nextLevel = map.computeIfAbsent(entry.index+1, i -> new ArrayList<>());
+                nextLevel.add(right.val);
+                queue.add(new TreeNodeEntry(entry.index + 1, right));
+            }
+
+        }
+        return new ArrayList<>(map.values());
     }
+
+
+
 
     private int getDepth(TreeNode node, int depth) {
         if (node != null) {
@@ -51,21 +113,19 @@ public class BinaryTree {
         return node;
     }
 
-    public Integer[] toArray() {
-        ArrayList<Integer> res = new ArrayList<>();
-        putInOrder(res, root);
-        return res.toArray(Integer[]::new);
-    }
 
-    private void putInOrder(ArrayList<Integer> list, TreeNode node) {
-        if (node != null) {
-            list.add(node.val);
-            putInOrder(list, node.left);
-            putInOrder(list, node.right);
+
+    private static class TreeNodeEntry {
+        int index;
+        TreeNode node;
+
+        TreeNodeEntry(int index, TreeNode node) {
+            this.index = index;
+            this.node = node;
         }
     }
 
-    private static class TreeNode {
+    protected static class TreeNode {
       int val;
       TreeNode left;
       TreeNode right;
@@ -76,5 +136,9 @@ public class BinaryTree {
           this.left = left;
           this.right = right;
       }
-  }
+
+        public int getVal() {
+            return val;
+        }
+    }
 }

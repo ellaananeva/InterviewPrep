@@ -17,6 +17,19 @@ public class BinaryTree {
         return getDepth(root, 0);
     }
 
+    public boolean isBinarySearchTree() {
+        return isBinarySearchTree(root, null, null);
+    }
+
+    private boolean isBinarySearchTree(TreeNode node, Integer low, Integer high) {
+      if (node == null) return true;
+      boolean isValid = true;
+      if (low != null) isValid = node.val < low;
+      if (high != null) isValid &= node.val > high;
+      isValid &= isBinarySearchTree(node.left, node.val, high) && isBinarySearchTree(node.right, low, node.val);
+      return isValid;
+    }
+
     private int getDepth(TreeNode node, int depth) {
         if (node != null) {
             depth++;
@@ -26,6 +39,7 @@ public class BinaryTree {
         }
         return depth;
     }
+
     private TreeNode insertNode(Integer[] array, TreeNode node, int i) {
         if (i < array.length) {
             if (array[i] != null) {

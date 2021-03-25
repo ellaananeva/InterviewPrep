@@ -32,9 +32,9 @@ public class StepsClimberTest {
 
     @Test
     @DisplayName("Test 4 steps")
-    public void testClimb6() {
+    public void testClimb4() {
 
-        Assertions.assertEquals(5, solver.climb(2), "climbed 3 steps");
+        Assertions.assertEquals(5, solver.climb(4), "climbed 3 steps");
 
     }
 

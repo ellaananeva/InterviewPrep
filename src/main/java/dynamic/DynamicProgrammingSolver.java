@@ -32,5 +32,16 @@ public class DynamicProgrammingSolver {
         }
         return maxProfit;
     }
-    
+
+    public int getMaxSubarray(int[] array) {
+        int currentSum = array[0];
+        int maxSum = array[0];
+        for (int i = 1; i< array.length; i++) {
+            currentSum = Math.max(array[i], currentSum + array[i]);
+            maxSum = Math.max(maxSum, currentSum);
+        }
+
+        return maxSum;
+    }
+
 }

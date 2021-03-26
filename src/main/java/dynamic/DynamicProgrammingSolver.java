@@ -21,4 +21,16 @@ public class DynamicProgrammingSolver {
         }
         return array[n];
     }
+
+    public int getMaxProfit(int[] array) {
+        int minPrice = array[0];
+        int maxProfit = 0;
+        for (int j : array) {
+            int earn = j - minPrice;
+            maxProfit = Math.max(maxProfit, earn);
+            if (j < minPrice) minPrice = j;
+        }
+        return maxProfit;
+    }
+    
 }

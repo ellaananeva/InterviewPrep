@@ -31,24 +31,6 @@ import java.util.regex.*;
 
         }
 
-        static int viralAdvertisiint groupSize = 5;
-        int liked, cumulativeLiked = 0;
-            for (int i = 1; i <=n; i++) {
-            liked = (groupSize/2);
-            groupSize = liked*3;
-            cumulativeLiked += liked;
-        }
-            return cumulativeLiked;ng(int n) {
-            int groupSize = 5;
-            int liked, cumulativeLiked = 0;
-            for (int i = 1; i <=n; i++) {
-                liked = (groupSize/2);
-                groupSize = liked*3;
-                cumulativeLiked += liked;
-            }
-            return cumulativeLiked;
-
-        }
 
         private static final Scanner scanner = new Scanner(System.in);
 

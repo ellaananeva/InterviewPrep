@@ -17,12 +17,5 @@ public class HackerRankTest {
 
     }
 
-    @Test
-    @DisplayName("Test ads")
-    public void testAds() {
 
-        assertEquals(5, HackerRank.viralAdvertising(2));
-        assertEquals(24, HackerRank.viralAdvertising(5));
-
-    }
 }

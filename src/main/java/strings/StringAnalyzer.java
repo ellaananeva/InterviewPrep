@@ -1,8 +1,6 @@
 package strings;
 
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 public class StringAnalyzer {
 
@@ -71,8 +69,20 @@ public class StringAnalyzer {
             }
         }
         return iN == nLength ? result : -1;
-
     }
+
+    public List<List<String>> groupAnagrams(String[] strings) {
+        Map<ArrayEntry, ArrayList<String>> map = new HashMap<>();
+        for (String str : strings) {
+            char[] chars = str.toCharArray();
+            Arrays.sort(chars);
+            ArrayEntry entry = new ArrayEntry(chars);
+            List<String> anagrams = map.computeIfAbsent(entry, s -> new ArrayList<>());
+            anagrams.add(str);
+        }
+        return new ArrayList<>(map.values());
+    }
+
     private Map<Character, Integer> getCharacterFrequencyMap(String s) {
         HashMap<Character, Integer> map = new HashMap<>();
         for (int i = 0; i < s.length(); i++) {
@@ -81,6 +91,31 @@ public class StringAnalyzer {
             map.put(ch, freq);
         }
         return map;
+    }
+
+    private static class ArrayEntry {
+        private final char[] array;
+
+        private ArrayEntry(char[] array) {
+            this.array = array;
+        }
+
+        @Override
+        public int hashCode() {
+            return new String(array).hashCode();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (!(obj instanceof ArrayEntry)) return false;
+            ArrayEntry entry = (ArrayEntry) obj;
+            char[] objArray = entry.array;
+            if (objArray.length != this.array.length) return false;
+            for (int i = 0; i < objArray.length; i++) {
+                if (objArray[i] != array[i]) return false;
+            }
+            return true;
+        }
     }
 
 }

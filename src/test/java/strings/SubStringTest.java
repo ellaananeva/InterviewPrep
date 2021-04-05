@@ -50,4 +50,31 @@ public class SubStringTest {
                 "Long strStr works");
     }
 
+    @Test
+    @DisplayName("Test longest substring default")
+    public void testLongestSubstringWithNoRepeatingCharactersDefault() {
+        String input = "abcabcbb";
+        assertEquals(3, stringAnalyzer.getLongestSubstringLength(input));
+    }
+
+    @Test
+    @DisplayName("Test longest substring repeating")
+    public void testLongestSubstringWithNoRepeatingCharactersRepeating() {
+        String input = "bbbbbbb";
+        assertEquals(1, stringAnalyzer.getLongestSubstringLength(input));
+    }
+
+    @Test
+    @DisplayName("Test longest substring at the end")
+    public void testLongestSubstringWithNoRepeatingCharactersEnding() {
+        String input = "pwwkew";
+        assertEquals(3, stringAnalyzer.getLongestSubstringLength(input));
+    }
+
+    @Test
+    @DisplayName("Test longest substring 2")
+    public void testLongestSubstringWithNoRepeatingCharacters2() {
+        String input = "aw";
+        assertEquals(2, stringAnalyzer.getLongestSubstringLength(input));
+    }
 }

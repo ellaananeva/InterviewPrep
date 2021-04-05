@@ -83,6 +83,34 @@ public class StringAnalyzer {
         return new ArrayList<>(map.values());
     }
 
+    public int getLongestSubstringLength(String input) {
+        if (input.isEmpty()) return 0;
+        Set<Character> set = new HashSet<>();
+        int maxLength = 1;
+        int i = 0, j = 0;
+        while (i < input.length()) {
+            char current = input.charAt(i);
+            if (set.contains(current)) {
+                final int setLength = set.toArray().length;
+                if (maxLength < setLength) {
+                    maxLength = setLength;
+                }
+                set.clear();
+                j++;
+                i = j;
+            } else {
+                set.add(current);
+                i++;
+            }
+        }
+
+        if (!set.isEmpty()) {
+            final int setLength = set.toArray().length;
+            if (setLength > maxLength) maxLength = setLength;
+        }
+        return maxLength;
+    }
+
     private Map<Character, Integer> getCharacterFrequencyMap(String s) {
         HashMap<Character, Integer> map = new HashMap<>();
         for (int i = 0; i < s.length(); i++) {

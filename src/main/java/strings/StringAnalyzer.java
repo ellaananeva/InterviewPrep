@@ -111,6 +111,58 @@ public class StringAnalyzer {
         return maxLength;
     }
 
+    public String getLongestPalindromeSubstring(String s) {
+        if (s.isEmpty()) return "";
+        int start = 0, end = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int len1 = expandAroundCenter(s, i, i);
+            int len2 = expandAroundCenter(s, i, i + 1);
+            int len = Math.max(len1, len2);
+            if (len > end - start) {
+                start = i - (len - 1) / 2;
+                end = i + len / 2;
+            }
+        }
+        return s.substring(start, end + 1);
+    }
+
+    private int expandAroundCenter(String s, int left, int right) {
+        int L = left, R = right;
+        while (L >= 0 && R < s.length() && s.charAt(L) == s.charAt(R)) {
+            L--;
+            R++;
+        }
+        return R - L - 1;
+    }
+
+    public String getLongestCommonSubstring(String s1, String s2) {
+
+        String outerString;
+        String innerString;
+        if (s1.length() > s2.length()) {
+            outerString = s2;
+            innerString = s1;
+        } else {
+            outerString = s1;
+            innerString = s2;
+        }
+        String subString = "";
+        for (int i = 0; i < outerString.length(); i++) {
+            for (int j = 0; j < innerString.length(); j++) {
+                int delta = 0;
+                while (i+delta < outerString.length() && j+delta < innerString.length()
+                        && outerString.charAt(i+delta) == innerString.charAt(j+delta)) {
+                    delta++;
+                }
+                if (delta > subString.length()) {
+                    subString = outerString.substring(i, i+delta);
+                }
+            }
+        }
+
+        return subString;
+    }
+
     private Map<Character, Integer> getCharacterFrequencyMap(String s) {
         HashMap<Character, Integer> map = new HashMap<>();
         for (int i = 0; i < s.length(); i++) {

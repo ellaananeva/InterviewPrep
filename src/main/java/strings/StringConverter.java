@@ -1,7 +1,7 @@
 package strings;
 
 public class StringConverter {
-    public char[] reverseString(char[] str) {
+    public static char[] reverseString(char[] str) {
         int i = 0, j = str.length-1;
         while (i<=(str.length-1)/2 && j>(str.length-1)/2)
         {
